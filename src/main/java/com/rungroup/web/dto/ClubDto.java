@@ -1,14 +1,14 @@
 package com.rungroup.web.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class ClubDto {
     private long id;
     private String title;
