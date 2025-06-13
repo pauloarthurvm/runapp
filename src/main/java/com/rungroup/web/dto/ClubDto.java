@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ClubDto {
     private long id;
     private String title;
-    private String photourl;
+    private String photoUrl;
     private String content;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;

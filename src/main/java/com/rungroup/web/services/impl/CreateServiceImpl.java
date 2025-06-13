@@ -27,11 +27,16 @@ public class CreateServiceImpl implements ClubService {
         return clubs.stream().map((club) -> mapToClubDto(club)).collect(Collectors.toList());
     }
 
+    @Override
+    public Club saveClub(Club club) {
+        return clubRepository.save(club);
+    }
+
     private ClubDto mapToClubDto(Club club) {
         return new ClubDto(
                 club.getId(),
                 club.getTitle(),
-                club.getPhotourl(),
+                club.getPhotoUrl(),
                 club.getContent(),
                 club.getCreatedOn(),
                 club.getUpdatedOn()

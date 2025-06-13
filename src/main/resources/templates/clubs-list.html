@@ -1,17 +1,10 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--</body>-->
-<!--</html>-->
 <html
         xmlns:th="http://thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="layout">
+<head>
+    <titl>Club List</titl>
+</head>
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
     <!-- Page Content-->
@@ -23,8 +16,8 @@
             </div>
             <div class="row gx-5">
                 <div th:each="club :${clubs}" class="col-lg-6">
-                    <div class="position-relative mb-5">
-                        <img class="img-fluid rounded-3 mb-3" th:src="${club.getPhotourl()}" alt="..." />
+                    <div class="position-relative mb-5 d-flex flex-column">
+                        <img class="img-fluid rounded-3 mb-3" th:src="${club.getPhotoUrl()}" alt="..." />
                         <a th:text="${club.getTitle()}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!">Project name</a>
                     </div>
                 </div>
@@ -33,5 +26,4 @@
     </section>
 </main>
 </body>
-
 </html>

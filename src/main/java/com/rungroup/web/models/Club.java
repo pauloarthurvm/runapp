@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 @Table(name = "clubs")
 public class Club {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String title;
-    private String photourl;
+    private String photoUrl;
     private String content;
     @CreationTimestamp
     private LocalDateTime createdOn;
@@ -44,12 +44,12 @@ public class Club {
         this.title = title;
     }
 
-    public String getPhotourl() {
-        return photourl;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhotourl(String photourl) {
-        this.photourl = photourl;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getContent() {
