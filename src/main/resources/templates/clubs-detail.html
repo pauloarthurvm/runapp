@@ -29,7 +29,7 @@
                             <div class="small text-muted" th:text="${clubDto.createdOn}"></div>
                             <h2 class="card-title">About this Running Club</h2>
                             <p class="card-text" th:text="${clubDto.content}"></p>
-                            <a class="btn btn-primary">Delete</a>
+                            <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId=${clubDto.id})}">Delete</a>
                         </div>
                     </div>
                     <!-- Nested row for non-featured blog posts-->
