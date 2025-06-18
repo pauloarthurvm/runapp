@@ -23,7 +23,7 @@ public class CreateServiceImpl implements ClubService {
     @Override
     public List<ClubDto> findAllClubs() {
         List<Club> clubs = clubRepository.findAll();
-        System.out.println(clubs);
+//        System.out.println(clubs);
         return clubs.stream().map((club) -> mapToClubDto(club)).collect(Collectors.toList());
     }
 
