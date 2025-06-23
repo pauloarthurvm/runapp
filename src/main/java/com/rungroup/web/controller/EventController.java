@@ -46,4 +46,11 @@ public class EventController {
         eventService.createEvent(clubId, eventDto);
         return "redirect:/clubs";
     }
+
+    @GetMapping("/events/{eventId}")
+    public String viewEvent(@PathVariable("eventId") Long eventId, Model model) {
+        EventDto eventDto = eventService.findByEventId(eventId);
+        model.addAttribute("eventDto", eventDto);
+        return "events-detail";
+    }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.rungroup.web.mapper.EventMapper.mapToEvent;
+import static com.rungroup.web.mapper.EventMapper.mapToEventDto;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -43,6 +44,13 @@ public class EventServiceImpl implements EventService {
                 .map(EventMapper::mapToEventDto)
                 .collect(Collectors.toList());
         return eventDtoList;
+    }
+
+    @Override
+    public EventDto findByEventId(Long eventId) {
+        Event event = eventRepository.findById(eventId).get();
+        EventDto eventDto = mapToEventDto(event);
+        return eventDto;
     }
 
 }

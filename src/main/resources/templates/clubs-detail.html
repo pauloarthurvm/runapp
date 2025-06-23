@@ -41,9 +41,9 @@
                                 <a href="#!"><img class="card-img-top" th:src="${event.photoUrl}" alt="..." /></a>
                                 <div class="card-body">
                                     <div class="small text-muted">January 1, 2023</div>
-                                    <h2 th:text="${event.name}" class="card-title h4">Event Title</h2>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
+                                    <h2 th:text="${event.name}" class="card-title h4"></h2>
+                                    <p th:text="${event.type}" class="card-text"></p>
+                                    <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}">Read more</a>
                                 </div>
                             </div>
 
