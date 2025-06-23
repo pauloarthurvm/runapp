@@ -66,8 +66,9 @@ public class ClubController {
     @PostMapping("/clubs/{clubId}/edit")
     public String updateClub(@PathVariable("clubId") Long clubId,
                              @Valid @ModelAttribute("club") ClubDto clubDto,
-                             BindingResult bindResult) {
+                             BindingResult bindResult, Model model) {
         if (bindResult.hasErrors()) {
+            model.addAttribute("club", clubDto);
             return "clubs-edit";
         }
         clubDto.setId(clubId);

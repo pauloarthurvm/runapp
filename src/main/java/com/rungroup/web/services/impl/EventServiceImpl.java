@@ -10,7 +10,6 @@ import com.rungroup.web.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +50,12 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(eventId).get();
         EventDto eventDto = mapToEventDto(event);
         return eventDto;
+    }
+
+    @Override
+    public void updateEvent(EventDto eventDto) {
+        Event event = mapToEvent(eventDto);
+        eventRepository.save(event);
     }
 
 }
