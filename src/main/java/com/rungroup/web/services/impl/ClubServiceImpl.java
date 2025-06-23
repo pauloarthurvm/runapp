@@ -1,6 +1,7 @@
 package com.rungroup.web.services.impl;
 
 import com.rungroup.web.dto.ClubDto;
+import com.rungroup.web.mapper.ClubMapper;
 import com.rungroup.web.models.Club;
 import com.rungroup.web.repository.ClubRepository;
 import com.rungroup.web.services.ClubService;
@@ -10,13 +11,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.rungroup.web.mapper.ClubMapper.mapToClub;
+import static com.rungroup.web.mapper.ClubMapper.mapToClubDto;
+
 @Service
-public class CreateServiceImpl implements ClubService {
+public class ClubServiceImpl implements ClubService {
 
     private ClubRepository clubRepository;
 
     @Autowired
-    public CreateServiceImpl(ClubRepository clubRepository) {
+    public ClubServiceImpl(ClubRepository clubRepository) {
         this.clubRepository = clubRepository;
     }
 
@@ -54,29 +58,7 @@ public class CreateServiceImpl implements ClubService {
     public List<ClubDto> searchClubs(String query) {
         List<Club> clubs = clubRepository.searchClubs(query);
 //        return clubs.stream().map(club -> mapToClubDto(club)).collect(Collectors.toList());
-        return clubs.stream().map(this::mapToClubDto).collect(Collectors.toList());
+        return clubs.stream().map(ClubMapper::mapToClubDto).collect(Collectors.toList());
     }
 
-    private Club mapToClub(ClubDto clubDto) {
-        Club club = Club.builder()
-                .id(clubDto.getId())
-                .title(clubDto.getTitle())
-                .photoUrl(clubDto.getPhotoUrl())
-                .content(clubDto.getContent())
-                .createdOn(clubDto.getCreatedOn())
-                .updatedOn(clubDto.getUpdatedOn())
-                .build();
-        return club;
-    }
-
-    private ClubDto mapToClubDto(Club club) {
-        return new ClubDto(
-                club.getId(),
-                club.getTitle(),
-                club.getPhotoUrl(),
-                club.getContent(),
-                club.getCreatedOn(),
-                club.getUpdatedOn()
-        );
-    }
 }

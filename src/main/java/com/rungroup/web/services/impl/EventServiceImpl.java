@@ -1,6 +1,7 @@
 package com.rungroup.web.services.impl;
 
 import com.rungroup.web.dto.EventDto;
+import com.rungroup.web.mapper.EventMapper;
 import com.rungroup.web.models.Club;
 import com.rungroup.web.models.Event;
 import com.rungroup.web.repository.ClubRepository;
@@ -8,6 +9,12 @@ import com.rungroup.web.repository.EventRepository;
 import com.rungroup.web.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.rungroup.web.mapper.EventMapper.mapToEvent;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -29,16 +36,13 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(event);
     }
 
-    private Event mapToEvent(EventDto eventDto) {
-        return Event.builder()
-                .id(eventDto.getId())
-                .name(eventDto.getName())
-                .startTime(eventDto.getStartTime())
-                .endTime(eventDto.getEndTime())
-                .type(eventDto.getType())
-                .photoUrl(eventDto.getPhotoUrl())
-                .createdOn(eventDto.getCreatedOn())
-                .updatedOn(eventDto.getUpdatedOn())
-                .build();
+    @Override
+    public List<EventDto> findAllEvents() {
+        List<EventDto> eventDtoList = eventRepository.findAll()
+                .stream()
+                .map(EventMapper::mapToEventDto)
+                .collect(Collectors.toList());
+        return eventDtoList;
     }
+
 }
