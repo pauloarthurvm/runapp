@@ -3,7 +3,10 @@ package com.rungroup.web.services.impl;
 import com.rungroup.web.dto.ClubDto;
 import com.rungroup.web.mapper.ClubMapper;
 import com.rungroup.web.models.Club;
+import com.rungroup.web.models.UserEntity;
 import com.rungroup.web.repository.ClubRepository;
+import com.rungroup.web.repository.UserRepository;
+import com.rungroup.web.security.SecurityUtil;
 import com.rungroup.web.services.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +21,26 @@ import static com.rungroup.web.mapper.ClubMapper.mapToClubDto;
 public class ClubServiceImpl implements ClubService {
 
     private ClubRepository clubRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ClubServiceImpl(ClubRepository clubRepository) {
+    public ClubServiceImpl(ClubRepository clubRepository,  UserRepository userRepository) {
         this.clubRepository = clubRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public List<ClubDto> findAllClubs() {
         List<Club> clubs = clubRepository.findAll();
-//        System.out.println(clubs);
         return clubs.stream().map((club) -> mapToClubDto(club)).collect(Collectors.toList());
     }
 
     @Override
     public Club saveClub(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsername(username);
         Club club = mapToClub(clubDto);
+        club.setCreatedBy(userEntity);
         return clubRepository.save(club);
     }
 
@@ -45,7 +52,10 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public void updateClub(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity userEntity = userRepository.findByUsername(username);
         Club club = mapToClub(clubDto);
+        club.setCreatedBy(userEntity);
         clubRepository.save(club);
     }
 
@@ -57,7 +67,6 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ClubDto> searchClubs(String query) {
         List<Club> clubs = clubRepository.searchClubs(query);
-//        return clubs.stream().map(club -> mapToClubDto(club)).collect(Collectors.toList());
         return clubs.stream().map(ClubMapper::mapToClubDto).collect(Collectors.toList());
     }
 
