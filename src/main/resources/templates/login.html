@@ -3,7 +3,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="layout">
 <head>
-  <titl>Club Edit</titl>
+  <titl>Login</titl>
 </head>
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
@@ -47,9 +47,10 @@
         <div th:if="${param.logout}" class="alert alert-">
           You have been logged out.
         </div>
+<!--        <div th:if="${param.fail}" class="alert alert-success">-->
+<!--          Username or email already exists-->
+<!--        </div>-->
 
-        <div th:if="${param.fail}" class="alert alert-success">
-          Username or email already exists</div>
         <div class="login-form">
           <form method="post" role="form" th:action="@{/login}">
             <div class="form-group">
