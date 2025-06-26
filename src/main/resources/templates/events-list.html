@@ -20,7 +20,9 @@
             <a th:text="${eventDto.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"></a>
           </div>
           <a th:href="@{/events/{eventId}(eventId=${eventDto.id})}" class="btn btn-primary">View</a>
-          <a th:href="@{/events/{eventId}/edit(eventId=${eventDto.id})}" class="btn btn-primary">Edit</a>
+          <div th:if="${userEntity.id} == ${club.createdBy.id}">
+            <a th:href="@{/events/{eventId}/edit(eventId=${eventDto.id})}" class="btn btn-primary">Edit</a>
+          </div>
         </div>
       </div>
     </div>

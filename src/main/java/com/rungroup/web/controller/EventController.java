@@ -3,6 +3,9 @@ package com.rungroup.web.controller;
 import com.rungroup.web.dto.ClubDto;
 import com.rungroup.web.dto.EventDto;
 import com.rungroup.web.models.Event;
+import com.rungroup.web.models.UserEntity;
+import com.rungroup.web.security.SecurityUtil;
+import com.rungroup.web.services.UserService;
 import com.rungroup.web.services.impl.EventServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +23,24 @@ import java.util.List;
 public class EventController {
 
     private EventServiceImpl eventService;
+    private UserService userService;
 
     @Autowired
-    public EventController(EventServiceImpl eventService) {
+    public EventController(EventServiceImpl eventService, UserService userService) {
         this.eventService = eventService;
+        this.userService = userService;
     }
 
     @GetMapping("/events")
     public String eventList(Model model) {
         List<EventDto> eventDtoList = eventService.findAllEvents();
+        UserEntity userEntity = new UserEntity();
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            userEntity = userService.findByUsername(username);
+            model.addAttribute("userEntity", userEntity);
+        }
+        model.addAttribute("userEntity", userEntity);
         model.addAttribute("eventDtoList", eventDtoList);
         return "events-list";
     }
@@ -53,6 +65,14 @@ public class EventController {
     @GetMapping("/events/{eventId}")
     public String viewEvent(@PathVariable("eventId") Long eventId, Model model) {
         EventDto eventDto = eventService.findByEventId(eventId);
+        UserEntity userEntity = new UserEntity();
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            userEntity = userService.findByUsername(username);
+            model.addAttribute("userEntity", userEntity);
+        }
+        model.addAttribute("club", eventDto);
+        model.addAttribute("userEntity", userEntity);
         model.addAttribute("eventDto", eventDto);
         return "events-detail";
     }
